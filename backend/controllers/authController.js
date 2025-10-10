@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const { JWT_SECRET } = require('seu_segredo_jwt_aqui');
+const { JWT_SECRET } = require('../middlewares/authMiddleware');
 
 const authController = {
   async register(req, res) {
