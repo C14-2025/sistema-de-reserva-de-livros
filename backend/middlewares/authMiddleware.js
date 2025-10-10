@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-const JWT_SECRET = 'seu_segredo_jwt_aqui_altere_em_producao';
+const JWT_SECRET = require('../middlewares/authMiddleware');
 
 const authMiddleware = async (req, res, next) => {
   try {
