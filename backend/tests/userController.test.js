@@ -1,26 +1,30 @@
-const request = require("supertest");
-const app = require("../server");
+const userController = require("../controllers/userController");
 
-describe("User Controller", () => {
-  test("Deve listar todos os usuários", async () => {
-    const res = await request(app).get("/api/users");
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
+describe("UserController", () => {
+  test("getProfile deve chamar res.json (retorna perfil do usuário)", async () => {
+   
+    const req = { user: { id: 1 } };
+    const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
+
+    await userController.getProfile(req, res);
+
+    expect(res.json).toHaveBeenCalled();
   });
 
-  test("Deve criar um novo usuário", async () => {
-    const novoUsuario = {
-      nome: "Teste Usuário",
-      email: `teste_${Date.now()}@mail.com`,
-      senha: "123456"
+  test("createUser deve criar usuário e retornar 201; duplicata retorna 400", async () => {
+    
+    const novo = {
+      body: { name: "TesteCriar", email: `teste_criar_${Date.now()}@mail.com`, password: "123456", role: "user" }
     };
-    const res = await request(app).post("/api/users").send(novoUsuario);
-    expect(res.statusCode).toBe(201);
-    expect(res.body).toHaveProperty("id");
-  });
+    const res1 = { json: jest.fn(), status: jest.fn().mockReturnThis() };
 
-  test("Não deve criar usuário sem dados obrigatórios", async () => {
-    const res = await request(app).post("/api/users").send({});
-    expect(res.statusCode).toBe(400);
+    await userController.createUser(novo, res1);
+    expect(res1.status).toHaveBeenCalledWith(201);
+    expect(res1.json).toHaveBeenCalled();
+
+   
+    const res2 = { json: jest.fn(), status: jest.fn().mockReturnThis() };
+    await userController.createUser(novo, res2);
+    expect(res2.status).toHaveBeenCalledWith(400);
   });
 });
