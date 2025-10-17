@@ -1,9 +1,9 @@
 name: CI - Backend Node.js
 on:
   push:
-    branches: [ "pipeline_m","main", "master" ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ "pipeline_m","main", "master" ]
+    branches: [ "main", "master" ]
 
 concurrency:
   group: ci-backend-${{ github.ref }}
