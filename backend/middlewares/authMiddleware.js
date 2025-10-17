@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-const JWT_SECRET = require('../middlewares/authMiddleware');
+const JWT_SECRET = 'sistema_reserva_livros_seguranca_2025';
 
 const authMiddleware = async (req, res, next) => {
   try {
