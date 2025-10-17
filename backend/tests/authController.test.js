@@ -22,7 +22,7 @@ const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-/
+
 authController.JWT_SECRET = "test-secret-123";
 
 describe("AuthController", () => {
