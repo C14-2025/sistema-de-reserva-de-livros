@@ -5,6 +5,16 @@ Sistema completo de **reserva de livros**, desenvolvido em **Node.js** com arqui
 
 ---
 
+## Status do projeto
+✅ Backend Completo - API 100% funcional
+✅ Banco de Dados - SQLite configurado e sincronizado
+✅ Autenticação JWT - Sistema de login seguro
+✅ Testes Unitários - 8 testes implementados e passando
+✅ Documentação - Endpoints completamente documentados
+🚀 Pronto para Integração - Frontend pode ser desenvolvido
+
+---
+
 ## 🚀 Funcionalidades Implementadas  
 
 ### 🔐 Autenticação & Autorização  
@@ -45,6 +55,17 @@ Sistema completo de **reserva de livros**, desenvolvido em **Node.js** com arqui
 | **Comunicação** | CORS |
 | **Testes** | Jest, Supertest |
 | **Dev Tools** | Nodemon |
+
+---
+
+## Cobertura de Testes
+✅ AuthController - Registro e login (2 testes)
+
+✅ BookController - CRUD de livros (2 testes)
+
+✅ ReservationController - Sistema de reservas (2 testes)
+
+✅ UserController - Gestão de usuários (2 testes)
 
 ---
 

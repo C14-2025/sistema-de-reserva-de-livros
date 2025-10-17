@@ -42,3 +42,38 @@ jobs:
           else
             npm install
           fi
+
+  # JOB 2: test (depende do setup)
+  test:
+    name: Rodar testes e gerar relatório
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Restore node modules cache
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Run tests
+        working-directory: backend
+        run: |
+          echo "==> npm test (Jest)"
+          npm test -- --runInBand
+
+      - name: Upload test results (raw)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-results-${{ github.run_id }}
+          path: backend/test-results.json
