@@ -11,8 +11,10 @@ Book.hasMany(Reservation, { foreignKey: 'bookId' });
 Reservation.belongsTo(Book, { foreignKey: 'bookId' });
 
 // Sincronizar banco
-sequelize.sync({ force: false }).then(() => {
-  console.log('Banco de dados sincronizado');
+sequelize.sync().then(() => {
+  if (process.env.NODE_ENV !== 'test') {
+    console.log("Banco de dados sincronizado");
+  }
 });
 
 module.exports = {
