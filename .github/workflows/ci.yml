@@ -149,3 +149,28 @@ jobs:
         with:
           name: backend-package
           path: backend-package-*.zip
+
+  # JOB 5: Envia email de notificação
+  notify:
+    name: Envio de notificação por email
+    runs-on: ubuntu-latest
+    needs: [package]
+    if: always()   # executa mesmo se o teste falhar
+    steps:
+      - name: Send notification email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # servidor SMTP (exemplo: Gmail, Outlook, etc.)
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "📢 Pipeline finalizado: ${{ github.repository }}"
+          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          to: ${{ secrets.NOTIFY_EMAIL }}
+          body: |
+            O pipeline do repositório **${{ github.repository }}** foi concluído.
+            Status: ${{ job.status }}
+            Commit: ${{ github.sha }}
+            Autor: ${{ github.actor }}
+            Branch: ${{ github.ref_name }}
