@@ -1,0 +1,20 @@
+.input-field {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #c93855;
+  box-shadow: 0 0 0 3px rgba(201, 56, 85, 0.1);
+}
+
+.input-field::placeholder {
+  color: #999;
+}
