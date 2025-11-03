@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
+}
+
+.header-logo {
+  font-size: 42px;
+  font-weight: 900;
+  color: #3d1a1a;
+  font-family: Arial, sans-serif;
+  letter-spacing: -1px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}

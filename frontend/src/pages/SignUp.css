@@ -1,0 +1,90 @@
+.signup-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8f4f0 0%, #d4e8e0 100%);
+}
+
+.signup-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: linear-gradient(135deg, #b0e0e6 0%, #d4e8e0 100%);
+}
+
+.signup-logo {
+  font-size: 42px;
+  font-weight: 900;
+  color: #3d1a1a;
+  font-family: Arial, sans-serif;
+  letter-spacing: -1px;
+}
+
+.signup-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 60px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 80px;
+}
+
+.signup-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-image {
+  max-width: 100%;
+  height: auto;
+  width: 400px;
+}
+
+.signup-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 500px;
+}
+
+.signup-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signup-subtitle {
+  font-size: 20px;
+  color: #4a4a4a;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.signup-title {
+  font-size: 56px;
+  font-weight: 900;
+  color: #3d1a1a;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.1;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 968px) {
+  .signup-content {
+    flex-direction: column;
+    padding: 40px 30px;
+  }
+
+  .signup-title {
+    font-size: 42px;
+  }
+}
