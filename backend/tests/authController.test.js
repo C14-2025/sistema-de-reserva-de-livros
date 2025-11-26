@@ -76,3 +76,4 @@ describe("AuthController", () => {
     expect(res.json).toHaveBeenCalledWith({ error: "Credenciais inválidas" });
   });
 });
+

@@ -83,7 +83,6 @@
   }
 }
 
-/* Botões de navegação (página de books) */
 .nav-buttons {
   position: absolute;
   right: 85px;
@@ -124,3 +123,4 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
+

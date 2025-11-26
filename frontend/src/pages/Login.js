@@ -15,12 +15,11 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login:", formData);
-    // coloque aqui a chamada da API/validação
+    // colocar aqui a chamada da API/validação
   };
 
   return (
     <div className="login-container">
-      {/* Header */}
       <header className="header">
         <h1 className="logo">bookle</h1>
 
@@ -36,27 +35,22 @@ export default function Login() {
         </button>
       </header>
 
-      {/* Imagem Maior - Biblioteca */}
       <img
         src="/image/biblioteca.svg"
         alt="Biblioteca"
         className="image-large"
       />
 
-      {/* Imagem Menor - Estudante */}
       <img
         src="/image/estudante.svg"
         alt="Estudante"
         className="image-small"
       />
 
-      {/* Texto de Boas-Vindas */}
       <h2 className="welcome-text">Que bom te ver aqui!</h2>
 
-      {/* Título Login */}
       <h3 className="login-title">Faça seu login</h3>
 
-      {/* Formulário */}
       <form onSubmit={handleSubmit}>
         <input
           type="email"

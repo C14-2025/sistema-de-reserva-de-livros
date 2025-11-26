@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@500;600&family=Anaheim&display=swap");
 
-/* Container principal do login (escopado) */
 .login-container {
   position: relative;
   width: 100vw;
@@ -9,7 +8,6 @@
   overflow: hidden;
 }
 
-/* Header */
 .login-container .header {
   position: absolute;
   top: 0;
@@ -20,7 +18,6 @@
   z-index: 1000;
 }
 
-/* Logo */
 .login-container .logo {
   position: absolute;
   left: 78px;
@@ -35,7 +32,6 @@
   margin: 0;
 }
 
-/* Botão Página Inicial */
 .login-container .home-button {
   position: absolute;
   left: 1280px;
@@ -65,7 +61,6 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-/* Imagem Maior - Biblioteca */
 .login-container .image-large {
   position: absolute;
   left: 28px;
@@ -75,7 +70,6 @@
   object-fit: contain;
 }
 
-/* Imagem Menor - Estudante */
 .login-container .image-small {
   position: absolute;
   left: 350px;
@@ -85,7 +79,6 @@
   object-fit: contain;
 }
 
-/* Texto de Boas-Vindas */
 .login-container .welcome-text {
   position: absolute;
   left: 820px;
@@ -101,7 +94,6 @@
   margin: 0;
 }
 
-/* Título Login */
 .login-container .login-title {
   position: absolute;
   left: 820px;
@@ -118,7 +110,6 @@
   white-space: nowrap;
 }
 
-/* Campo E-mail */
 .login-container .email-input {
   position: absolute;
   left: 820px;
@@ -145,7 +136,6 @@
   box-shadow: 0 0 0 3px rgba(192, 34, 69, 0.1);
 }
 
-/* Campo Senha */
 .login-container .password-input {
   position: absolute;
   left: 820px;
@@ -172,7 +162,6 @@
   box-shadow: 0 0 0 3px rgba(192, 34, 69, 0.1);
 }
 
-/* Botão Entrar */
 .login-container .submit-button {
   position: absolute;
   left: 987px;
@@ -201,7 +190,6 @@
   transform: translateY(0);
 }
 
-/* Responsivo */
 @media (max-width: 968px) {
   .login-container .image-large { left: 20px; top: 140px; width: 400px; height: auto; }
   .login-container .image-small { left: 180px; width: 280px; }
@@ -211,3 +199,4 @@
   .login-container .password-input,
   .login-container .submit-button { left: 40px; max-width: calc(100% - 80px); }
 }
+

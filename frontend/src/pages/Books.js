@@ -2,6 +2,7 @@ import "./Books.css";
 import Header from "../components/Header/Header";
 import BookCard from "../components/BookCard/BookCard";
 
+
 export default function Books({ navigate }) {
   return (
     <div className="books-page">
