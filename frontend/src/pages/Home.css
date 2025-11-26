@@ -1,0 +1,130 @@
+.landing-container {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.landing-main {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(135deg, #5b9fd5 0%, #b5e0ed 50%, #e0f5fc 100%);
+}
+
+/* Image Container */
+.image-container {
+  position: absolute;
+  left: 70px;
+  top: -10px;
+  width: 819px; 
+  height: 868px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+}
+
+/* Welcome Text */
+.welcome-text {
+  position: absolute;
+  left: 860px;
+  top: 229px;
+  width: 368px;
+  height: 60px;
+  font-family: 'Anaheim', sans-serif;
+  font-size: 64px;
+  font-weight: 500;
+  color: #511d33;
+  margin: 0;
+  line-height: 0.9;
+  text-align: center;
+}
+
+/* Bookle Title */
+.bookle-title {
+  position: absolute;
+  left: 830px;
+  top: 297px;
+  width: 437px;
+  height: 98px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 128px;
+  font-weight: 700;
+  color: #3d1424;
+  margin: 0;
+  line-height: 0.8;
+  text-align: center;
+}
+
+/* Description Text */
+.description-text {
+  position: absolute;
+  left: 878px;
+  top: 405px;
+  width: 343px;
+  height: 69px;
+  font-family: 'Anaheim', sans-serif;
+  font-size: 48px;
+  font-weight: 500;
+  color: #511d33;
+  margin: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* CTA Button */
+.cta-button {
+  position: absolute;
+  left: 937px;
+  top: 545px;
+  width: 214px;
+  height: 66px;
+  background-color: #c02245;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #a01d3a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .image-container {
+    width: 400px;
+    height: 450px;
+    left: 30px;
+    top: 150px;
+  }
+  
+  .welcome-text,
+  .bookle-title,
+  .description-text,
+  .cta-button {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

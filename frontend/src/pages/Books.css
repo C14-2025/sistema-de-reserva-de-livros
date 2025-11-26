@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@500;600&family=Anaheim&display=swap");
+
+/* Container principal (escopado) */
+.books-page {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to top right, #6bb8f5 0%, #89c9f7 30%, #a8d8f9 60%, #c8e8fb 80%, #e5f6fd 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header customizado para Books */
+.books-page .landing-header {
+  height: 114px;
+  background: linear-gradient(90deg, #7ec8ff 0%, #a8d8ff 100%);
+  box-shadow: none;
+}
+
+/* Main Content */
+.books-content {
+  position: absolute;
+  top: 114px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 114px);
+  display: flex;
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  gap: 0;
+}
+
+/* Left Section */
+.books-left {
+  position: relative;
+  flex: 1;
+}
+
+.books-title {
+  position: absolute;
+  left: 257px;
+  top: 37px;
+  width: 547px;
+  height: 49px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  color: #3b1424;
+  line-height: 49px;
+  margin: 0;
+}
+
+.books-subtitle {
+  position: absolute;
+  left: 257px;
+  top: 92px;
+  width: 481px;
+  height: 35px;
+  font-family: "Anaheim", sans-serif;
+  font-weight: 500;
+  font-size: 48px;
+  color: #511d33;
+  line-height: 35px;
+  margin: 0;
+}
+
+/* Book Cards Container */
+.books-list {
+  position: absolute;
+  left: 250px;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0;
+}
+
+/* Right Section - Image */
+.books-right {
+  position: absolute;
+  left: 890px;
+  top: -70px;
+  width: 434px;
+  height: 750px;
+  flex: none;
+}
+
+.books-image {
+  width: 434px;
+  height: 750px;
+  object-fit: contain;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .books-content {
+    flex-direction: column;
+    position: static;
+    height: auto;
+  }
+
+  .books-left {
+    position: static;
+    padding: 40px 20px;
+  }
+
+  .books-title,
+  .books-subtitle,
+  .books-list {
+    position: static;
+    left: auto;
+    top: auto;
+  }
+
+  .books-right {
+    position: static;
+    left: auto;
+    top: auto;
+    margin: 20px auto;
+  }
+}

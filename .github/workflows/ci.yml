@@ -1,0 +1,176 @@
+name: CI - Backend Node.js
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+concurrency:
+  group: ci-backend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # JOB 1: setup (instala dependências e cache)
+  setup:
+    name: Instalação de dependências
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js (matrix-friendly)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies (backend)
+        working-directory: backend
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+  # JOB 2: test (depende do setup)
+  test:
+    name: Rodar testes e gerar relatório
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Restore node modules cache
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Run tests
+        working-directory: backend
+        run: |
+          echo "==> npm test (Jest)"
+          npm test -- --runInBand
+
+      - name: Upload test results (raw)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-results-${{ github.run_id }}
+          path: backend/test-results.json
+
+  # JOB 3: audit (depende do setup)
+  audit:
+    name: Audit
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Restore node modules cache
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Run npm audit (high and above will fail)
+        working-directory: backend
+        run: |
+          echo "==> Running npm audit --audit-level=high"
+          set -o pipefail
+          npm audit --audit-level=high || echo "Some high/critical issues found (non-zero exit). See audit output above."
+
+      - name: Upload audit report
+        if: ${{ always() }}
+        working-directory: backend
+        run: |
+          npm audit --json > audit-report.json || true
+      - name: Persist audit report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-audit-report-${{ github.run_id }}
+          path: backend/audit-report.json
+
+  # JOB 4: package (gera um zip e disponibiliza como artifact) - depende de test e audit
+  package:
+    name: Package backend
+    runs-on: ubuntu-latest
+    needs: [test, audit]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create package folder
+        run: |
+          mkdir -p package-backend
+          rsync -av --exclude='.git' --exclude='node_modules' backend/ package-backend/backend/
+
+      - name: Install production dependencies (inside package)
+        run: |
+          pushd package-backend/backend
+          npm install --production
+          popd
+
+      - name: Zip backend package
+        run: |
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          zip -r backend-package-${TIMESTAMP}.zip package-backend
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-package
+          path: backend-package-*.zip
+
+  # JOB 5: Envia email de notificação
+  notify:
+    name: Envio de notificação por email
+    runs-on: ubuntu-latest
+    needs: [package]
+    if: always()   # executa mesmo se o teste falhar
+    steps:
+      - name: Send notification email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # servidor SMTP (exemplo: Gmail, Outlook, etc.)
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "📢 Pipeline finalizado: ${{ github.repository }}"
+          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          to: ${{ secrets.NOTIFY_EMAIL }}
+          body: |
+            O pipeline do repositório **${{ github.repository }}** foi concluído.
+            Status: ${{ job.status }}
+            Commit: ${{ github.sha }}
+            Autor: ${{ github.actor }}
+            Branch: ${{ github.ref_name }}

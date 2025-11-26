@@ -1,0 +1,189 @@
+.register-container {
+  min-width: 1280px;
+  min-height: 720px;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(
+    45deg,
+    #7ab5c0 0%,
+    #8bc3cc 10%,
+    #a0d0d8 20%,
+    #b5dce3 30%,
+    #cce5e8 40%,
+    #dfe9e0 50%,
+    #eae8d5 60%,
+    #f2ecd0 75%,
+    #f7f0c8 90%,
+    #fdf4bd 100%
+  );
+  overflow: auto;
+}
+
+.register-container .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 116px;
+  background: #c2e8ec;
+  z-index: 1000;
+}
+
+.register-container .logo {
+  position: absolute;
+  left: 78px;
+  top: 38px;
+  width: 166px;
+  height: 38px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  color: #3b1424;
+  line-height: 38px;
+}
+
+.register-container .home-button {
+  position: absolute;
+  left: 1281px;
+  top: 42px;
+  width: 160px;
+  height: 45px;
+  background: #f4f4f4;
+  border-radius: 25px;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #3b1424;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1100;
+  pointer-events: auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.register-container .home-button:hover {
+  background: #e8e8e8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.register-container .main-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.register-container .illustration {
+  position: absolute;
+  left: 61px;
+  top: -20px;
+  width: 620px;
+  height: auto;
+  object-fit: contain;
+}
+
+.register-container .form-section {
+  position: absolute;
+  left: 847px;
+  top: 166px;
+}
+
+.register-container .subtitle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 457px;
+  height: 83px;
+  font-family: "Anaheim", sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  color: #511d33;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.register-container .title {
+  position: absolute;
+  left: 0;
+  top: 115px;
+  width: 468px;
+  height: 51px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  color: #3b1424;
+  text-align: left;
+  line-height: 51px;
+  white-space: nowrap;
+}
+
+.register-container .input-field {
+  position: absolute;
+  left: -3px;
+  width: 439px;
+  height: 52px;
+  background: #fffefe;
+  border: 1px solid #3b1424;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.register-container .input-field::placeholder {
+  color: #999;
+}
+
+.register-container .input-field:focus {
+  outline: none;
+  border-color: #3b1424;
+}
+
+.register-container .input-name { top: 200px; }
+.register-container .input-email { top: 273px; }
+.register-container .input-password { top: 347px; }
+
+.register-container .submit-button {
+  position: absolute;
+  left: 129px;
+  top: 428px;
+  width: 151px;
+  height: 59px;
+  background: #c02245;
+  border: none;
+  border-radius: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.register-container .submit-button:hover {
+  background: #a01d3a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.register-container .submit-button:active {
+  background: #8a1831;
+  transform: translateY(0);
+}
+
+@media (max-width: 968px) {
+  .register-container .illustration { left: 20px; top: 140px; width: 320px; height: auto; }
+  .register-container .form-section { left: 40px; top: 520px; }
+  .register-container .title { font-size: 42px; white-space: normal; }
+}
