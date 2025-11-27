@@ -1,37 +1,64 @@
-"use client"
-
 import "./Header.css"
-import Button from "../Button/Button"
 
-export default function Header({ showAuthButtons = false, showNavButtons = false, showAdmButton = false, navigate }) {
+export default function Header({ showAuthButtons, showAdmButton, showNavButtons, showBooksButton, navigate }) {
   return (
-    <header className="header">
-      <div className="header-logo">bookle</div>
-      <div className="header-buttons">
+    <header className="landing-header">
+      <div className="header-content">
+        <h1 className="bookle-logo">bookle</h1>
+
         {showNavButtons && (
-          <>
-            <Button variant="secondary" icon="←" onClick={() => navigate("home")}>
-              Página inicial
-            </Button>
-            <Button variant="secondary" icon="←" onClick={() => navigate("books")}>
+          <nav className="nav-buttons">
+            <button className="nav-button" onClick={() => navigate("/reservations")}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
               Minhas reservas
-            </Button>
-          </>
+            </button>
+            <button className="nav-button" onClick={() => navigate("/")}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Página inicial
+            </button>
+          </nav>
         )}
+
+        {showBooksButton && (
+          <nav className="nav-buttons">
+            <button className="nav-button" onClick={() => navigate("/books")}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Biblioteca
+            </button>
+            <button className="nav-button" onClick={() => navigate("/")}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Página inicial
+            </button>
+          </nav>
+        )}
+
         {showAuthButtons && (
           <>
-            <Button variant="secondary" icon="👤" onClick={() => navigate("login")}>
-              Fazer login
-            </Button>
-            <Button variant="secondary" icon="+" onClick={() => navigate("signup")}>
-              Criar conta
-            </Button>
+            <button onClick={() => navigate("/login")} className="header-btn login-btn">
+              👤 Fazer login
+            </button>
+
+            <button onClick={() => navigate("/signup")} className="header-btn create-btn">
+              ➕ Criar conta
+            </button>
           </>
         )}
+
         {showAdmButton && (
-          <Button variant="secondary" icon="›">
+          <button onClick={() => navigate("/admin")} className="header-btn admin-btn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             Adm
-          </Button>
+          </button>
         )}
       </div>
     </header>

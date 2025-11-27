@@ -1,6 +1,7 @@
-import "./Books.css"
-import Header from "../components/Header/Header"
-import BookCard from "../components/BookCard/BookCard"
+import "./Books.css";
+import Header from "../components/Header/Header";
+import BookCard from "../components/BookCard/BookCard";
+
 
 export default function Books({ navigate }) {
   return (
@@ -20,9 +21,9 @@ export default function Books({ navigate }) {
         </div>
 
         <div className="books-right">
-          <img src="./images/estante.svg" alt="Estante de livros" className="books-image" />
+          <img src="/image/estante.svg" alt="Estante de livros" className="books-image" />
         </div>
       </main>
     </div>
-  )
+  );
 }

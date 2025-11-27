@@ -1,63 +1,81 @@
-"use client"
+import React, { useState } from "react";
+import "./Login.css";
 
-import { useState } from "react"
-import "./Login.css"
-import Input from "../components/Input/Input"
-import Button from "../components/Button/Button"
-
-export default function Login({ navigate }) {
+export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
+  });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Login:", formData)
-  }
+    e.preventDefault();
+    console.log("Login:", formData);
+    // colocar aqui a chamada da API/validação
+  };
 
   return (
-    <div className="login-page">
-      <div className="login-header-wrapper">
-        <div className="login-logo">bookle</div>
-        <Button variant="secondary" icon="←" onClick={() => navigate("home")}>
+    <div className="login-container">
+      <header className="header">
+        <h1 className="logo">bookle</h1>
+
+        <button
+          type="button"
+          className="home-button"
+          onClick={() => (window.location.href = "/")}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
           Página inicial
-        </Button>
-      </div>
+        </button>
+      </header>
 
-      <main className="login-content">
-        <div className="login-left">
-          <img src="./images/biblioteca.svg" alt="Biblioteca" className="login-image" />
-        </div>
+      <img
+        src="/image/biblioteca.svg"
+        alt="Biblioteca"
+        className="image-large"
+      />
 
-        <div className="login-right">
-          <div className="login-text">
-            <p className="login-subtitle">Que bom te ter aqui!</p>
-            <h1 className="login-title">Faça seu login</h1>
-          </div>
+      <img
+        src="/image/estudante.svg"
+        alt="Estudante"
+        className="image-small"
+      />
 
-          <form className="login-form" onSubmit={handleSubmit}>
-            <Input type="email" placeholder="E-mail" name="email" value={formData.email} onChange={handleChange} />
-            <Input
-              type="password"
-              placeholder="Senha"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <Button variant="primary" type="submit">
-              Entrar
-            </Button>
-          </form>
-        </div>
-      </main>
+      <h2 className="welcome-text">Que bom te ver aqui!</h2>
+
+      <h3 className="login-title">Faça seu login</h3>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="email-input"
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Senha"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          className="password-input"
+        />
+
+        <button type="submit" className="submit-button">
+          Entrar
+        </button>
+      </form>
     </div>
-  )
+  );
 }

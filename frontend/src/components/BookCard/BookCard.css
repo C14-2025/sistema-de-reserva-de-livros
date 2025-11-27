@@ -1,36 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Roboto:wght@600&display=swap");
+
 .book-card {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
-  padding: 20px 24px;
+  width: 659px;
+  height: 118px;
+  background: #fffefe;
+  border: 2px solid #3b1424;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 16px 24px;
+  box-sizing: border-box;
+}
+
+.book-info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  transition: all 0.3s ease;
+  gap: 0px;
+  margin-top: -12px;
 }
 
-.book-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.book-card-row {
+.info-item {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: #3b1424;
+  margin-bottom: -3px;
 }
 
-.book-card-icon {
-  font-size: 18px;
-  width: 24px;
+.info-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.book-card-label {
-  font-size: 16px;
-  color: #3d1a1a;
-  font-family: Arial, sans-serif;
+.reserve-button {
+  width: 146px;
+  height: 39px;
+  background: #326db1;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  margin-top: 50px;
 }
+
+.reserve-button:hover {
+  background: #2a5d9a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.reserve-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .book-card {
+    width: 100%;
+    max-width: 659px;
+  }
+}
+

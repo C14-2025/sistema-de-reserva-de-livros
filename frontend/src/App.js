@@ -1,33 +1,32 @@
-"use client"
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Books from "./pages/Books";
+import Reservations from "./pages/Reservations";
+import "./App.css";
 
-import { useState } from "react"
-import Home from "./pages/Home"
-import Books from "./pages/Books"
-import SignUp from "./pages/SignUp"
-import Login from "./pages/Login"
-import "./App.css"
+function AppContent() {
+  const navigate = useNavigate();
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState("home")
-
-  const navigate = (page) => {
-    setCurrentPage(page)
-  }
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case "home":
-        return <Home navigate={navigate} />
-      case "books":
-        return <Books navigate={navigate} />
-      case "signup":
-        return <SignUp navigate={navigate} />
-      case "login":
-        return <Login navigate={navigate} />
-      default:
-        return <Home navigate={navigate} />
-    }
-  }
-
-  return <div className="App">{renderPage()}</div>
+  return (
+    <Routes>
+      <Route path="/" element={<Home navigate={navigate} />} />
+      <Route path="/login" element={<Login navigate={navigate} />} />
+      <Route path="/signup" element={<SignUp navigate={navigate} />} />
+      <Route path="/books" element={<Books navigate={navigate} />} />
+      <Route path="/reservations" element={<Reservations navigate={navigate} />} />
+    </Routes>
+  );
 }
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+export default App;

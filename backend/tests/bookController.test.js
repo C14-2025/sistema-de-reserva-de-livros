@@ -83,5 +83,4 @@ describe("BookController", () => {
     expect(Book.create).toHaveBeenCalledWith(req.body);
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(mockBook);
-  });
-});
+  });});

@@ -1,10 +1,8 @@
-"use client"
 import "./Button.css"
 
-export default function Button({ children, variant = "primary", icon, onClick, type = "button" }) {
+export default function Button({ variant = "primary", onClick, children, className = "" }) {
   return (
-    <button className={`button button-${variant}`} onClick={onClick} type={type}>
-      {icon && <span className="button-icon">{icon}</span>}
+    <button onClick={onClick} className={`btn btn-${variant} ${className}`}>
       {children}
     </button>
   )

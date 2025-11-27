@@ -1,20 +1,34 @@
-import "./BookCard.css"
+import React from "react";
+import "./BookCard.css";
 
-export default function BookCard({ title, author, genre }) {
+export default function BookCard({ title = "Nome do livro", author = "Nome do autor", genre = "Gênero" }) {
+  const handleReserve = () => {
+    console.log("Reservar:", { title, author, genre });
+  };
+
   return (
     <div className="book-card">
-      <div className="book-card-row">
-        <span className="book-card-icon">▶</span>
-        <span className="book-card-label">Nome do livro</span>
+      <div className="book-info">
+        <div className="info-item">
+          <span className="info-icon">▶</span>
+          <span>{title}</span>
+        </div>
+        <div className="info-item">
+          <span className="info-icon">◎</span>
+          <span>{author}</span>
+        </div>
+        <div className="info-item">
+          <span className="info-icon">◐</span>
+          <span>{genre}</span>
+        </div>
       </div>
-      <div className="book-card-row">
-        <span className="book-card-icon">👤</span>
-        <span className="book-card-label">Nome do autor</span>
-      </div>
-      <div className="book-card-row">
-        <span className="book-card-icon">🌙</span>
-        <span className="book-card-label">Gênero</span>
-      </div>
+      
+      <button className="reserve-button" onClick={handleReserve}>
+        Reservar
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 4L10 8L6 12" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
     </div>
-  )
+  );
 }

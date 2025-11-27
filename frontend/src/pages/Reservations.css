@@ -1,0 +1,281 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;600&family=Anaheim&display=swap");
+
+    /* Container principal (escopado) */
+    .reservations-page {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+        45deg,
+        #7ab5c0 0%,
+        #8bc3cc 10%,
+        #a0d0d8 20%,
+        #b5dce3 30%,
+        #cce5e8 40%,
+        #dfe9e0 50%,
+        #eae8d5 60%,
+        #f2ecd0 75%,
+        #f7f0c8 90%,
+        #fdf4bd 100%
+    );
+}
+
+    /* Header customizado para Reservations */
+    .reservations-page .landing-header {
+    height: 114px;
+    background:  #c2e8ec;
+    box-shadow: none;
+    }
+
+    /* Main Content */
+    .reservations-content {
+    position: absolute;
+    left: 0;
+    top: 86px;
+    right: 0;
+    bottom: 0;
+    }
+
+    /* Left Section */
+    .reservations-left {
+    position: absolute;
+    left: 100px;
+    top: 73px;
+    }
+
+    .reservations-title {
+    width: 528px;
+    height: 53px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    color: #3b1424;
+    line-height: 53px;
+    margin: 0;
+    }
+
+    .reservations-subtitle {
+    width: 396px;
+    height: 43px;
+    font-family: "Anaheim", sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    color: #511d33;
+    line-height: 43px;
+    margin: 12px 0 0 0;
+    }
+
+    /* Images */
+    .bookshelf-small {
+    position: absolute;
+    width: 155px;
+    height: 438px;
+    left: 4px;
+    top: 228px;
+    }
+
+    .bookshelf-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    }
+
+    .desk-illustration {
+    position: absolute;
+    width: 520px;
+    height: 474px;
+    left: 130px;
+    top: 155px;
+    }
+
+    .desk-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    }
+
+    /* Book Cards Grid */
+    .reservations-grid {
+    position: absolute;
+    left: 840px;
+    top: 108px;
+    }
+
+    .reservations-row {
+    display: flex;
+    margin-bottom: 39px;
+    }
+
+    .reservations-row:first-child {
+    gap: 55px;
+    }
+
+    .reservations-row:last-child {
+    gap: 55px;
+    margin-bottom: 0;
+    }
+
+    /* Reservation Card */
+    .reservation-card {
+    width: 266px;
+    height: 167px;
+    background: #fffefe;
+    border: 2px solid #3b1424;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    }
+
+    .card-content {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex: 1;
+    }
+
+    .book-cover {
+    width: 100px;
+    height: 108px;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin-left: -12px;
+    }
+
+    .card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    }
+
+    .card-title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #3b1424;
+    line-height: 24px;
+    margin: 0;
+    }
+
+    .card-author,
+    .card-genre {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #3b1424;
+    line-height: 20px;
+    margin: 0;
+    }
+
+    .delete-button {
+    width: 140px;
+    height: 25px;
+    background: #d95a7f;
+    border: none;
+    border-radius: 12.5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    margin-left: auto;
+    }
+
+    .delete-button:hover {
+    background: #c7466a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .delete-button:active {
+    transform: translateY(0);
+    }
+
+    /* Finalize Button */
+    .finalize-button {
+    position: absolute;
+    width: 214px;
+    height: 41px;
+    left: 1272px;
+    top: 521px;
+    background: #326db1;
+    border: none;
+    border-radius: 8px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    }
+
+    .finalize-button:hover {
+    background: #2859a0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .finalize-button:active {
+    transform: translateY(0);
+    }
+
+    /* Responsivo */
+    @media (max-width: 1024px) {
+    .reservations-content {
+        position: static;
+    }
+
+    .reservations-left {
+        position: static;
+        padding: 40px 20px;
+    }
+
+    .reservations-title,
+    .reservations-subtitle {
+        width: 100%;
+        max-width: 528px;
+    }
+
+    .bookshelf-small,
+    .desk-illustration {
+        display: none;
+    }
+
+    .reservations-grid {
+        position: static;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    .reservations-row {
+        flex-direction: column;
+        gap: 20px !important;
+        margin-bottom: 20px;
+    }
+
+    .reservation-card {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .finalize-button {
+        position: static;
+        margin: 40px auto 20px;
+        display: flex;
+    }
+    }

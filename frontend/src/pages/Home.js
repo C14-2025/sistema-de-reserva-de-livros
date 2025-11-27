@@ -6,22 +6,27 @@ import Button from "../components/Button/Button"
 
 export default function Home({ navigate }) {
   return (
-    <div className="home-page">
-      <Header showAuthButtons={true} showAdmButton={true} navigate={navigate} />
+    <div className="landing-container">
+      <main className="landing-main">
+        <Header showAuthButtons={true} showAdmButton={true} navigate={navigate} />
 
-      <main className="home-content">
-        <div className="home-illustration">
-          <img src="./images/main.svg" alt="Biblioteca ilustração" className="home-image" />
+        <div className="image-container">
+          <img src="/image/main.svg" alt="Biblioteca ilustração" className="illustration" />
         </div>
 
-        <div className="home-text">
-          <h2 className="home-subtitle">Bem-vindo ao</h2>
-          <h1 className="home-title">bookle</h1>
-          <p className="home-description">seu sistema de reserva de livros</p>
-          <Button variant="primary" onClick={() => navigate("books")}>
-            Comece agora!
-          </Button>
-        </div>
+        <p className="welcome-text">Bem-vindo ao</p>
+
+        <h2 className="bookle-title">bookle</h2>
+
+        <p className="description-text">
+          seu sistema de
+          <br />
+          reserva de livros
+        </p>
+
+        <Button variant="primary" onClick={() => navigate("books")} className="cta-button">
+          Comece agora!
+        </Button>
       </main>
     </div>
   )

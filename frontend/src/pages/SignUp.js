@@ -1,65 +1,57 @@
-"use client"
-
 import { useState } from "react"
 import "./SignUp.css"
-import Input from "../components/Input/Input"
-import Button from "../components/Button/Button"
 
-export default function SignUp({ navigate }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  })
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+export default function SignUp() {
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" })
+  const handleGoHome = () => {
+    console.log("Botão clicado - navegando para home")
+    window.location.href = "/"
   }
 
-  const handleSubmit = (e) => {
+  function handleChange(e) {
+    const { name, value } = e.target
+    setFormData((s) => ({ ...s, [name]: value }))
+  }
+
+  function handleSubmit(e) {
     e.preventDefault()
-    console.log("Cadastro:", formData)
+    console.log("Criar conta:", formData)
+    // aqui colocar chamada API / validação / redirecionamento
   }
 
   return (
-    <div className="signup-page">
-      <div className="signup-header-wrapper">
-        <div className="signup-logo">bookle</div>
-        <Button variant="secondary" icon="←" onClick={() => navigate("home")}>
+    <div className="register-container">
+      <header className="header">
+        <h1 className="logo">bookle</h1>
+        <button type="button" className="home-button" onClick={handleGoHome}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
           Página inicial
-        </Button>
-      </div>
+        </button>
+      </header>
 
-      <main className="signup-content">
-        <div className="signup-left">
-          <img src="./images/estudante.svg" alt="Pessoa estudando" className="signup-image" />
-        </div>
+      <main className="main-content">
+        <img
+          src="/image/estudante.svg"
+          alt="Pessoa estudando"
+          className="illustration"
+        />
 
-        <div className="signup-right">
-          <div className="signup-text">
-            <p className="signup-subtitle">Dê o primeiro passo da sua jornada</p>
-            <h1 className="signup-title">Crie sua conta</h1>
-          </div>
+        <div className="form-section">
+          <h2 className="subtitle">Dê o primeiro passo da sua jornada</h2>
+          <h3 className="title">Crie sua conta</h3>
 
-          <form className="signup-form" onSubmit={handleSubmit}>
-            <Input type="text" placeholder="Nome" name="name" value={formData.name} onChange={handleChange} />
-            <Input type="email" placeholder="E-mail" name="email" value={formData.email} onChange={handleChange} />
-            <Input
-              type="password"
-              placeholder="Senha"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <Button variant="primary" type="submit">
-              Criar conta
-            </Button>
+          <form onSubmit={handleSubmit}>
+            <input name="name" onChange={handleChange} value={formData.name} type="text" placeholder="Nome" className="input-field input-name" />
+            <input name="email" onChange={handleChange} value={formData.email} type="email" placeholder="E-mail" className="input-field input-email" />
+            <input name="password" onChange={handleChange} value={formData.password} type="password" placeholder="Senha" className="input-field input-password" />
+            <button type="submit" className="submit-button">Criar conta</button>
           </form>
         </div>
       </main>
     </div>
   )
 }
+
