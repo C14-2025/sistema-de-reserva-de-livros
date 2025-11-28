@@ -1,12 +1,14 @@
 module.exports = {
   testEnvironment: 'node',
-  coverageDirectory: 'coverage',
+  coveragePathIgnorePatterns: ['/node_modules/'],
+  testMatch: ['**/tests/**/*.test.js'],
   collectCoverageFrom: [
     'controllers/**/*.js',
-    'routes/**/*.js', 
-    'middlewares/**/*.js'
+    'models/**/*.js',
+    'middlewares/**/*.js',
+    '!**/node_modules/**'
   ],
-  testMatch: [
-    '**/tests/**/*.test.js'
-  ]
+  coverageDirectory: 'coverage',
+  verbose: true,
+  testTimeout: 10000
 };
