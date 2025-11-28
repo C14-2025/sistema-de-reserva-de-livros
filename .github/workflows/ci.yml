@@ -361,7 +361,7 @@ jobs:
           echo "*Relatório gerado automaticamente pelo GitHub Actions*" >> $GITHUB_STEP_SUMMARY
 
       - name: 📥 Download do relatório de cobertura
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         if: always()
         with:
           name: coverage-report
