@@ -152,12 +152,11 @@ jobs:
     name: Envio de notificação por email
     runs-on: ubuntu-latest
     needs: [package]
-    if: always()   # executa mesmo se o teste falhar
+    if: always()
     steps:
       - name: Send notification email
         uses: dawidd6/action-send-mail@v3
         with:
-          # servidor SMTP (exemplo: Gmail, Outlook, etc.)
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
@@ -172,7 +171,7 @@ jobs:
             Autor: ${{ github.actor }}
             Branch: ${{ github.ref_name }}
 
-  #JOBs de testes
+  # JOBs de testes de integração
   test-backend:
     name: 🧪 Testes Backend
     runs-on: ubuntu-latest
@@ -208,7 +207,7 @@ jobs:
       
       - name: 📤 Upload de relatório de cobertura HTML
         if: matrix.node-version == '20.x'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: backend/coverage/lcov-report/
@@ -216,7 +215,7 @@ jobs:
       
       - name: 📊 Upload de cobertura para Codecov
         if: matrix.node-version == '20.x'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./backend/coverage/lcov.info
           flags: backend
@@ -370,7 +369,7 @@ jobs:
 
       - name: 📊 Comentário com resultado no PR
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.createComment({
@@ -382,5 +381,6 @@ jobs:
                     '📊 **25+ testes executados**\n' +
                     '✅ Integração de reservas validada\n' +
                     '✅ Persistência de dados confirmada\n' +
-                    '✅ Autenticação JWT funcionando\n\n' 
+                    '✅ Autenticação JWT funcionando\n\n' +
+                    'Veja o relatório completo na aba **Actions**.'
             })
