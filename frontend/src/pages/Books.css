@@ -73,6 +73,33 @@
   flex-direction: column;
   gap: 15px;
   margin: 0;
+
+  max-height: 395px; /* Ajuste a altura conforme necessário */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Estiliza o scrollbar */
+.books-list::-webkit-scrollbar {
+  width: 8px;
+  cursor: pointer;
+}
+
+.books-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.books-list::-webkit-scrollbar-thumb {
+  background: #7ec8ff;
+  border-radius: 10px;
+}
+
+.books-list::-webkit-scrollbar-thumb:hover {
+  background: #5eb0ef;
 }
 
 /* Right Section - Image */

@@ -1,52 +1,33 @@
-const { Book, Reservation } = require('../models');
+const { Book } = require('../models');
 
 const bookController = {
   async getAllBooks(req, res) {
     try {
-      const { page = 1, limit = 10, search, status } = req.query;
-      const offset = (page - 1) * limit;
-      
-      let where = {};
-      
-      if (search) {
-        where = {
-          [Op.or]: [
-            { title: { [Op.like]: `%${search}%` } },
-            { author: { [Op.like]: `%${search}%` } },
-            { genre: { [Op.like]: `%${search}%` } }
-          ]
-        };
-      }
-      
-      if (status) {
-        where.status = status;
-      }
-      
-      const books = await Book.findAndCountAll({
-        where,
-        limit: parseInt(limit),
-        offset: parseInt(offset),
-        order: [['title', 'ASC']]
-      });
-      
-      res.json({
-        books: books.rows,
-        totalPages: Math.ceil(books.count / limit),
-        currentPage: parseInt(page),
-        totalBooks: books.count
-      });
+      const books = await Book.findAll();
+      res.json(books);
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     }
   },
 
-  async createBook(req, res) {
+  async seedBooks(req, res) {
     try {
-      const { title, author, genre, isbn } = req.body;
-      const book = await Book.create({ title, author, genre, isbn });
-      res.status(201).json(book);
+      const booksToAdd = [
+        { title: "Dom Casmurro", author: "Machado de Assis", genre: "Romance", cover: "/image/livro-azul.png" },
+        { title: "1984", author: "George Orwell", genre: "Ficção Científica", cover: "/image/livro-laranja.png" },
+        { title: "O Hobbit", author: "J.R.R. Tolkien", genre: "Fantasia", cover: "/image/livro-vermelho.png" },
+        { title: "Orgulho e Preconceito", author: "Jane Austen", genre: "Romance", cover: "/image/livro-azul.png" },
+        { title: "O Pequeno Príncipe", author: "Antoine de Saint-Exupéry", genre: "Infantil", cover: "/image/livro-laranja.png" },
+        { title: "Harry Potter e a Pedra Filosofal", author: "J.K. Rowling", genre: "Fantasia", cover: "/image/livro-vermelho.png" },
+        { title: "O Senhor dos Anéis", author: "J.R.R. Tolkien", genre: "Fantasia", cover: "/image/livro-azul.png" },
+        { title: "Jogos Vorazes", author: "Suzanne Collins", genre: "Distopia", cover: "/image/livro-laranja.png" },
+        { title: "A Revolução dos Bichos", author: "George Orwell", genre: "Fábula", cover: "/image/livro-vermelho.png" },
+      ];
+
+      await Book.bulkCreate(booksToAdd);
+      res.json({ message: "Livros adicionados com sucesso!", count: booksToAdd.length });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     }
   },
 

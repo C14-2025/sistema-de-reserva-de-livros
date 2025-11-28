@@ -1,9 +1,15 @@
 import React from "react";
 import "./BookCard.css";
+import { useReservations } from "../../contexts/ReservationContext";
 
-export default function BookCard({ title = "Nome do livro", author = "Nome do autor", genre = "Gênero" }) {
+export default function BookCard({ book }) {
+  const { addReservation } = useReservations();
+
   const handleReserve = () => {
-    console.log("Reservar:", { title, author, genre });
+    const success = addReservation(book);
+    if (success) {
+      alert(`"${book.title}" foi adicionado às suas reservas!`);
+    }
   };
 
   return (
@@ -11,15 +17,15 @@ export default function BookCard({ title = "Nome do livro", author = "Nome do au
       <div className="book-info">
         <div className="info-item">
           <span className="info-icon">▶</span>
-          <span>{title}</span>
+          <span className="info-text">{book.title}</span>
         </div>
         <div className="info-item">
           <span className="info-icon">◎</span>
-          <span>{author}</span>
+          <span className="info-text">{book.author}</span>
         </div>
         <div className="info-item">
           <span className="info-icon">◐</span>
-          <span>{genre}</span>
+          <span className="info-text">{book.genre}</span>
         </div>
       </div>
       

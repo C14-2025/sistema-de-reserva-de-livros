@@ -6,16 +6,58 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login:", formData);
-    // colocar aqui a chamada da API/validação
+
+    if (!formData.email || !formData.password) {
+      setErrorMessage("Preencha todos os campos");
+      return;
+    }
+
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Email ou senha inválidos");
+      }
+
+      // Sucesso - salva o token e redireciona
+      console.log("Login realizado com sucesso:", data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      window.location.href = "/books";
+
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setErrorMessage("Email ou senha inválidos");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,6 +89,12 @@ export default function Login() {
         className="image-small"
       />
 
+      {errorMessage && (
+        <div className="error-box">
+          {errorMessage}
+        </div>
+      )}
+
       <h2 className="welcome-text">Que bom te ver aqui!</h2>
 
       <h3 className="login-title">Faça seu login</h3>
@@ -60,6 +108,7 @@ export default function Login() {
           onChange={handleChange}
           required
           className="email-input"
+          disabled={isLoading}
         />
 
         <input
@@ -70,10 +119,11 @@ export default function Login() {
           onChange={handleChange}
           required
           className="password-input"
+          disabled={isLoading}
         />
 
-        <button type="submit" className="submit-button">
-          Entrar
+        <button type="submit" className="submit-button" disabled={isLoading}>
+          {isLoading ? "Entrando..." : "Entrar"}
         </button>
       </form>
     </div>

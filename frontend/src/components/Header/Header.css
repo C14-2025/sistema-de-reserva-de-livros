@@ -118,9 +118,12 @@
   width: 160px;
 }
 
+.nav-button-logout {
+  width: 100px !important; 
+}
+
 .nav-button:hover {
   background: #f5f5f5;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
-

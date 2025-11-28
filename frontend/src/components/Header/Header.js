@@ -1,6 +1,15 @@
 import "./Header.css"
 
-export default function Header({ showAuthButtons, showAdmButton, showNavButtons, showBooksButton, navigate }) {
+export default function Header({ showAuthButtons, showAdmButton, showNavButtons, showBooksButton, showLogoutButton, navigate }) {
+  
+  const handleLogout = () => {
+    // Remove token e dados do usuário
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    // Redireciona para home
+    window.location.href = "/";
+  };
+  
   return (
     <header className="landing-header">
       <div className="header-content">
@@ -14,11 +23,11 @@ export default function Header({ showAuthButtons, showAdmButton, showNavButtons,
               </svg>
               Minhas reservas
             </button>
-            <button className="nav-button" onClick={() => navigate("/")}>
+            <button className="nav-button nav-button-logout" onClick={handleLogout}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Página inicial
+              Sair
             </button>
           </nav>
         )}
@@ -31,11 +40,22 @@ export default function Header({ showAuthButtons, showAdmButton, showNavButtons,
               </svg>
               Biblioteca
             </button>
-            <button className="nav-button" onClick={() => navigate("/")}>
+            <button className="nav-button nav-button-logout" onClick={handleLogout}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Página inicial
+              Sair
+            </button>
+          </nav>
+        )}
+
+        {showLogoutButton && (
+          <nav className="nav-buttons">
+            <button className="nav-button nav-button-logout" onClick={handleLogout}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 12L6 8L10 4" stroke="#3b1424" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Sair
             </button>
           </nav>
         )}
