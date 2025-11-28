@@ -441,7 +441,5 @@ Desenvolvido por
 | **Lavinia Vitória Ribeiro Amaral** | GES 514, Turma A |
 | **Julia Alves Alvarenga Pereira** | GEC 2036, Turma B |
 
-
-
 ---
 
