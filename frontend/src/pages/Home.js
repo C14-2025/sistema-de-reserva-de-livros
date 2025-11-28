@@ -24,7 +24,7 @@ export default function Home({ navigate }) {
           reserva de livros
         </p>
 
-        <Button variant="primary" onClick={() => navigate("books")} className="cta-button">
+        <Button variant="primary" onClick={() => navigate("/signup")} className="cta-button">
           Comece agora!
         </Button>
       </main>

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { ReservationProvider } from "./contexts/ReservationContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -24,7 +25,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <ReservationProvider>
+        <AppContent />
+      </ReservationProvider>
     </Router>
   );
 }

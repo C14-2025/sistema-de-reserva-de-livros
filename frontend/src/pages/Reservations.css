@@ -99,19 +99,44 @@
     position: absolute;
     left: 840px;
     top: 108px;
+    max-height: 480px; /* Altura para mostrar ~4 cards (2 linhas) */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 15px;
+    }
+
+    .reservations-grid::-webkit-scrollbar {
+    width: 12px;
+    cursor: pointer;
+    }
+
+    .reservations-grid::-webkit-scrollbar-track {
+    background: rgba(59, 20, 36, 0.1);
+    border-radius: 10px;
+    }
+
+    .reservations-grid::-webkit-scrollbar-thumb {
+    background: #7ec8ff;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    }
+
+    .reservations-grid::-webkit-scrollbar-thumb:hover {
+    background: #5eb0ef;
+    }
+
+    .reservations-grid::-webkit-scrollbar-thumb:active {
+    background: #4a9fd9;
     }
 
     .reservations-row {
     display: flex;
+    gap: 55px;
     margin-bottom: 39px;
     }
 
-    .reservations-row:first-child {
-    gap: 55px;
-    }
-
     .reservations-row:last-child {
-    gap: 55px;
     margin-bottom: 0;
     }
 
@@ -125,6 +150,7 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     }
 
     .card-content {
@@ -278,4 +304,34 @@
         margin: 40px auto 20px;
         display: flex;
     }
+    }
+
+    .empty-message {
+    text-align: center;
+    padding: 40px;
+    font-family: "Poppins", sans-serif;
+    }
+
+    .empty-message p {
+    font-size: 20px;
+    color: #3b1424;
+    margin-bottom: 20px;
+    }
+
+    .back-to-books-btn {
+    background: #326db1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    .back-to-books-btn:hover {
+    background: #2859a0;
+    transform: translateY(-2px);
     }
