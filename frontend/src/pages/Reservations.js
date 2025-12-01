@@ -24,7 +24,7 @@ export default function Reservations({ navigate }) {
         console.log("Reservas finalizadas:", reservations);
         alert("Reservas finalizadas com sucesso!");
         clearReservations();
-        navigate("/books");
+        navigate("/booking-success");
     }
 };
 
