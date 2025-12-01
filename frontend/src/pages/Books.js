@@ -7,6 +7,7 @@ import BookCard from "../components/BookCard/BookCard";
 export default function Books({ navigate }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchBooks();
@@ -15,12 +16,21 @@ export default function Books({ navigate }) {
   const fetchBooks = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/books");
-      const data = await response.json();
-      const booksList = Array.isArray(data) ? data : (data.books || []);
-      setBooks(booksList);
+    
+    if (!response.ok) {
+      throw new Error(`Erro ${response.status}: ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log("Dados recebidos:", data); // Para debug
+    
+    const booksList = Array.isArray(data) ? data : (data.books || []);
+    setBooks(booksList);
     } catch (error) {
       console.error("Erro ao buscar livros:", error);
       // Dados mockados caso o backend não esteja disponível
+    const testResponse = await fetch("http://localhost:5000/api/books");
+    console.log("Status:", testResponse.status);
+    console.log("Headers:", testResponse.headers);
       setBooks([
         { id: 1, title: "Dom Casmurro", author: "Machado de Assis", genre: "Romance", cover: "/image/livro-azul.png" },
         { id: 2, title: "1984", author: "George Orwell", genre: "Ficção", cover: "/image/livro-laranja.png" },
@@ -46,7 +56,7 @@ export default function Books({ navigate }) {
 
           <div className="books-list">
             {books.map((book) => (
-              <BookCard key={book.id} book={book} />
+              <BookCard key={book.id} book={book} onUpdateBooks={fetchBooks} />
             ))}
           </div>
         </div>
