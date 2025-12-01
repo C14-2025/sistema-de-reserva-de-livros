@@ -15,22 +15,34 @@ export default function Books({ navigate }) {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/books");
-    
-    if (!response.ok) {
-      throw new Error(`Erro ${response.status}: ${response.statusText}`);
-    }
-    const data = await response.json();
-    console.log("Dados recebidos:", data); // Para debug
-    
-    const booksList = Array.isArray(data) ? data : (data.books || []);
-    setBooks(booksList);
+      // Obter o token do localStorage (ou de onde você armazena)
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      
+      if (!token) {
+        setError("Usuário não autenticado");
+        setLoading(false);
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/api/books", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const booksList = Array.isArray(data) ? data : (data.books || []);
+      setBooks(booksList);
+      
     } catch (error) {
       console.error("Erro ao buscar livros:", error);
-      // Dados mockados caso o backend não esteja disponível
-    const testResponse = await fetch("http://localhost:5000/api/books");
-    console.log("Status:", testResponse.status);
-    console.log("Headers:", testResponse.headers);
+      setError("Erro ao carregar livros: " + error.message);
       setBooks([
         { id: 1, title: "Dom Casmurro", author: "Machado de Assis", genre: "Romance", cover: "/image/livro-azul.png" },
         { id: 2, title: "1984", author: "George Orwell", genre: "Ficção", cover: "/image/livro-laranja.png" },
