@@ -10,7 +10,6 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 echo '🔄 Baixando código do Git...'
@@ -32,15 +31,6 @@ pipeline {
                     bat 'npm ci'
                     // Verifique se jest-junit está instalado
                     bat 'npm list jest-junit || npm install jest-junit --save-dev'
-                }
-            }
-        }
-
-        stage('Frontend - Install dependencies') {
-            steps {
-                echo '📦 Instalando dependências do frontend...'
-                dir('frontend') {
-                    bat 'npm ci'
                 }
             }
         }
@@ -138,6 +128,17 @@ pipeline {
             }
         }
 
+        stage('Frontend - Install dependencies') {
+            when {
+                expression { fileExists('frontend/package.json') }
+            }
+            steps {
+                echo '📦 Instalando dependências do frontend...'
+                dir('frontend') {
+                    bat 'npm ci'
+                }
+            }
+        }
     }
 
     post {
@@ -152,9 +153,29 @@ pipeline {
         
         success {
             echo '🎉 Pipeline finalizada com sucesso!'
+            script {
+                // Opcional: Enviar notificação de sucesso
+                emailext (
+                    subject: "✅ Build #${BUILD_NUMBER} - SUCESSO",
+                    body: "Pipeline do Sistema de Reserva de Livros finalizada com sucesso!\n\nDetalhes:\n- Job: ${JOB_NAME}\n- Build: #${BUILD_NUMBER}\n- URL: ${BUILD_URL}",
+                    to: 'seu-email@example.com'
+                )
+            }
         }
         failure {
             echo '❌ A pipeline falhou.'
+            script {
+                // Opcional: Enviar notificação de falha
+                emailext (
+                    subject: "❌ Build #${BUILD_NUMBER} - FALHA",
+                    body: "A pipeline do Sistema de Reserva de Livros falhou!\n\nDetalhes:\n- Job: ${JOB_NAME}\n- Build: #${BUILD_NUMBER}\n- URL: ${BUILD_URL}\n\nPor favor, verifique os logs.",
+                    to: 'seu-email@example.com'
+                )
+            }
+        }
+        always {
+            echo '📊 Pipeline finalizada. Status: ' + currentBuild.result
+            cleanWs() // Limpa workspace após execução
         }
     }
 }
