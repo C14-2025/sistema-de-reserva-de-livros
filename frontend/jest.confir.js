@@ -1,8 +1,18 @@
 module.exports = {
-  // Herda configurações do CRA
-  ...require('react-scripts/scripts/utils/createJestConfig')(),
+  // Configuração básica do Jest
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/index.js',
+    '!src/reportWebVitals.js'
+  ],
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
   
-  // Sobrescreve configurações
+  // Configuração para Jest JUnit
   reporters: [
     'default',
     ['jest-junit', {
@@ -10,10 +20,13 @@ module.exports = {
       outputName: 'junit.xml',
       suiteName: 'Frontend Tests',
       classNameTemplate: '{classname}',
-      titleTemplate: '{title}'
+      titleTemplate: '{title}',
+      ancestorSeparator: ' › ',
+      usePathForSuiteName: true
     }]
   ],
   
-  // Desabilita watch mode no CI
-  watchAll: false
+  // Configurações para CI
+  testTimeout: 10000,
+  verbose: true
 };
