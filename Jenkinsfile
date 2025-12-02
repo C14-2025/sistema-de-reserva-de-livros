@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo '📦 Instalando dependências do backend...'
                 dir('backend') {
-                    bat 'npm ci --only=production'
+                    bat 'npm ci'
                 }
             }
         }
@@ -64,7 +64,7 @@ pipeline {
             steps {
                 echo '📦 Instalando dependências do frontend...'
                 dir('frontend') {
-                    bat 'npm ci --only=production'
+                    bat 'npm ci'
                 }
             }
         }
