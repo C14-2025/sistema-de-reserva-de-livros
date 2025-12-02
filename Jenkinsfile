@@ -86,7 +86,52 @@ pipeline {
                 }
             }
         }
-    }
+
+        stage('Frontend - Run Tests') {
+            when {
+                expression { fileExists('frontend/package.json') }
+            }
+            steps {
+                echo '🧪 Rodando testes do frontend...'
+                dir('frontend') {
+                    bat '''
+                        @echo off
+                        echo === Configuração atual ===
+                        npm list jest-junit
+                        
+                        echo Criando diretório reports...
+                        if exist reports rmdir /s /q reports
+                        mkdir reports
+                        
+                        echo Executando testes do React...
+                        npx react-scripts test --watchAll=false --testResultsProcessor="jest-junit"
+                        
+                        echo === Verificação ===
+                        if exist "reports\\junit.xml" (
+                            echo ✅ RELATÓRIO EM reports/junit.xml
+                            for %%F in (reports\\junit.xml) do echo Tamanho: %%~zF bytes
+                        ) else if exist "junit.xml" (
+                            echo ⚠️ Arquivo na raiz, movendo...
+                            move junit.xml reports\\
+                            echo ✅ Movido para reports
+                        ) else (
+                            echo ❌ Nenhum arquivo encontrado
+                            echo Arquivos na raiz:
+                            dir | findstr /i "junit report"
+                        )
+                    '''
+                }
+            }
+            post {
+                always {
+                    junit(
+                        testResults: 'frontend/reports/junit.xml',
+                        allowEmptyResults: true
+                    )
+                }
+            }
+        }
+    } 
 
     post {
         success {
