@@ -30,6 +30,15 @@ pipeline {
             }
         }
 
+        stage('Frontend - Build') {
+            steps {
+                echo '🛠️ Construindo frontend...'
+                dir('frontend') {
+                    bat 'npm run build'
+                }
+            }
+        }
+
         stage('Backend - Run Tests') {
             steps {
                 echo '🧪 Rodando testes do backend...'
