@@ -44,18 +44,19 @@ pipeline {
             steps {
                 echo '🧪 Rodando testes do backend...'
                 dir('backend') {
-                    bat 'npx jest --json --outputFile=test-results.json'
+                    // Agora rodamos o Jest normalmente (o reporter fará o resto)
+                    bat 'npx jest'
                 }
             }
             post {
                 always {
                     echo '📄 Publicando resultados dos testes...'
-                    junit testResults: 'backend/reports/junit.xml', allowEmptyResults: true
+
+                    junit 'C:/jest-reports/jest-results.xml'
                 }
             }
         }
 
-       
     }
 
     post {

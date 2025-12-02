@@ -10,5 +10,17 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   verbose: true,
-  testTimeout: 10000
+  testTimeout: 10000,
+
+
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: 'C:/jest-reports',
+      outputName: 'jest-results.xml'
+      }
+    ]
+  ]
 };

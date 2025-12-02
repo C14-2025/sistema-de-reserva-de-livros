@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="25" failures="0" errors="0" time="5.413">
+  <testsuite name="AuthController" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:19:32" time="1.476" tests="2">
+    <testcase classname="AuthController Deve registrar um novo usuário corretamente" name="AuthController Deve registrar um novo usuário corretamente" time="0.029">
+    </testcase>
+    <testcase classname="AuthController Deve retornar erro se o login for inválido" name="AuthController Deve retornar erro se o login for inválido" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="BookController" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:19:32" time="3.996" tests="2">
+    <testcase classname="BookController Deve listar todos os livros" name="BookController Deve listar todos os livros" time="0.015">
+    </testcase>
+    <testcase classname="BookController Deve adicionar livros via seed" name="BookController Deve adicionar livros via seed" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="UserController" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:19:32" time="4.215" tests="2">
+    <testcase classname="UserController getProfile deve chamar res.json (retorna perfil do usuário)" name="UserController getProfile deve chamar res.json (retorna perfil do usuário)" time="0.14">
+    </testcase>
+    <testcase classname="UserController createUser deve criar usuário e retornar 201; duplicata retorna 400" name="UserController createUser deve criar usuário e retornar 201; duplicata retorna 400" time="0.247">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReservationController - Integração de Reservas" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:19:32" time="4.668" tests="19">
+    <testcase classname="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve retornar lista de reservas ativas do usuário" name="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve retornar lista de reservas ativas do usuário" time="0.086">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve retornar array vazio quando usuário não tem reservas" name="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve retornar array vazio quando usuário não tem reservas" time="0.067">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve retornar erro em caso de falha no banco" name="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve retornar erro em caso de falha no banco" time="0.019">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve buscar reservas do usuário logado" name="ReservationController - Integração de Reservas GET /api/reservations - Buscar reservas do usuário deve buscar reservas do usuário logado" time="0.009">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve validar criação de reserva com livro disponível" name="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve validar criação de reserva com livro disponível" time="0.039">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve retornar erro 404 se livro não existir" name="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve retornar erro 404 se livro não existir" time="0.007">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve retornar erro 400 se livro não estiver disponível" name="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve retornar erro 400 se livro não estiver disponível" time="0.008">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve verificar disponibilidade do livro antes de reservar" name="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve verificar disponibilidade do livro antes de reservar" time="0.007">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve processar requisição de reserva com autenticação" name="ReservationController - Integração de Reservas POST /api/reservations - Criar nova reserva deve processar requisição de reserva com autenticação" time="0.008">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas DELETE /api/reservations/:id - Deletar reserva deve deletar uma reserva com sucesso" name="ReservationController - Integração de Reservas DELETE /api/reservations/:id - Deletar reserva deve deletar uma reserva com sucesso" time="0.006">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas DELETE /api/reservations/:id - Deletar reserva deve retornar erro 404 se reserva não existir" name="ReservationController - Integração de Reservas DELETE /api/reservations/:id - Deletar reserva deve retornar erro 404 se reserva não existir" time="0.009">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas DELETE /api/reservations/:id - Deletar reserva deve garantir que usuário só delete suas próprias reservas" name="ReservationController - Integração de Reservas DELETE /api/reservations/:id - Deletar reserva deve garantir que usuário só delete suas próprias reservas" time="0.011">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations/finalize - Finalizar reservas deve finalizar todas as reservas ativas do usuário" name="ReservationController - Integração de Reservas POST /api/reservations/finalize - Finalizar reservas deve finalizar todas as reservas ativas do usuário" time="0.008">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations/finalize - Finalizar reservas deve retornar count 0 se não houver reservas ativas" name="ReservationController - Integração de Reservas POST /api/reservations/finalize - Finalizar reservas deve retornar count 0 se não houver reservas ativas" time="0.011">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas POST /api/reservations/finalize - Finalizar reservas deve alterar status para completed" name="ReservationController - Integração de Reservas POST /api/reservations/finalize - Finalizar reservas deve alterar status para completed" time="0.008">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas Integração - Persistência de reservas deve manter reservas vinculadas ao usuário no banco de dados" name="ReservationController - Integração de Reservas Integração - Persistência de reservas deve manter reservas vinculadas ao usuário no banco de dados" time="0.011">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas Integração - Persistência de reservas deve carregar reservas existentes do usuário" name="ReservationController - Integração de Reservas Integração - Persistência de reservas deve carregar reservas existentes do usuário" time="0.006">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas Validação de autenticação e autorização deve usar userId do token de autenticação nas operações" name="ReservationController - Integração de Reservas Validação de autenticação e autorização deve usar userId do token de autenticação nas operações" time="0.004">
+    </testcase>
+    <testcase classname="ReservationController - Integração de Reservas Validação de autenticação e autorização deve isolar reservas por usuário" name="ReservationController - Integração de Reservas Validação de autenticação e autorização deve isolar reservas por usuário" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>
