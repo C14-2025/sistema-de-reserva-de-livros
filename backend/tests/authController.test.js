@@ -75,5 +75,65 @@ describe("AuthController", () => {
     expect(res.status).toHaveBeenCalledWith(401);
     expect(res.json).toHaveBeenCalledWith({ error: "Credenciais inválidas" });
   });
+  
+  test("Deve retornar erro ao tentar registrar um usuário já existente", async () => {
+  req.body = { 
+    name: "Maria",
+    email: "maria@example.com",
+    password: "123456",
+    role: "user"
+  };
+
+  User.findOne.mockResolvedValue({ id: 99 });
+
+  await authController.register(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.json).toHaveBeenCalledWith({ error: "E-mail já cadastrado" });
+});
+  jest.mock("bcryptjs", () => ({
+  hash: jest.fn(),
+  compare: jest.fn().mockResolvedValue(true),
+}));
+
+test("Deve fazer login corretamente com credenciais válidas", async () => {
+  req.body = { email: "joao@example.com", password: "123456" };
+
+  User.findOne.mockResolvedValue({
+    id: 1,
+    email: "joao@example.com",
+    password: "hashed_password_123",
+    role: "user"
+  });
+
+  await authController.login(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(200);
+  expect(res.json).toHaveBeenCalledWith(
+    expect.objectContaining({ token: expect.any(String) })
+  );
+});
+jest.mock("bcryptjs", () => ({
+  hash: jest.fn(),
+  compare: jest.fn().mockResolvedValue(false),
+}));
+
+test("Deve retornar erro quando a senha estiver incorreta", async () => {
+  req.body = { email: "joao@example.com", password: "senha_errada" };
+
+  User.findOne.mockResolvedValue({
+    id: 1,
+    email: "joao@example.com",
+    password: "hashed_password_123",
+    role: "user"
+  });
+
+  await authController.login(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(401);
+  expect(res.json).toHaveBeenCalledWith({ error: "Credenciais inválidas" });
+});
+
+
 });
 
