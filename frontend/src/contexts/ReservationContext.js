@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 
 const ReservationContext = createContext();
 
@@ -18,13 +18,9 @@ export const ReservationProvider = ({ children }) => {
   const getToken = () => {
     return localStorage.getItem('token');
   };
-  // Carregar reservas do backend ao iniciar
-  useEffect(() => {
-  fetchReservations();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []); 
 
-  const fetchReservations = async () => {
+  // fetchReservations com useCallback
+  const fetchReservations = useCallback(async () => {
     try {
       const token = getToken();
       if (!token) return;
@@ -44,45 +40,49 @@ export const ReservationProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []); // Dependências vazias porque getToken e setReservations não mudam
+
+  // Carregar reservas do backend ao iniciar
+  useEffect(() => {
+    fetchReservations();
+  }, [fetchReservations]); // Agora fetchReservations está na lista de dependências
 
   const addReservation = async (book) => {
-  try {
-    const token = getToken();
-    if (!token) {
-      alert('Faça login para reservar livros');
+    try {
+      const token = getToken();
+      if (!token) {
+        alert('Faça login para reservar livros');
+        return false;
+      }
+
+      const response = await fetch('http://localhost:5000/api/reservations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ bookId: book.id })
+      });
+
+      // IMPORTANTE: Ler a resposta SEMPRE
+      const data = await response.json();
+
+      // Verificar status DEPOIS de ler o JSON
+      if (response.ok) {
+        setReservations(prev => [...prev, data]);
+        alert('Reserva criada com sucesso!');
+        return true;
+      } else {
+        // Mostrar erro do backend
+        alert(data.error || 'Erro ao criar reserva');
+        return false;
+      }
+    } catch (error) {
+      console.error('Erro ao criar reserva:', error);
+      alert('Erro ao conectar com o servidor');
       return false;
     }
-
-    const response = await fetch('http://localhost:5000/api/reservations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ bookId: book.id })
-    });
-
-    // IMPORTANTE: Ler a resposta SEMPRE
-    const data = await response.json();
-
-    // Verificar status DEPOIS de ler o JSON
-    if (response.ok) {
-      setReservations(prev => [...prev, data]);
-      alert('Reserva criada com sucesso!');
-      return true;
-    } else {
-      // Mostrar erro do backend
-      alert(data.error || 'Erro ao criar reserva');
-      return false;
-    }
-  } catch (error) {
-    console.error('Erro ao criar reserva:', error);
-    alert('Erro ao conectar com o servidor');
-    return false;
-  }
-};
-
+  };
 
   const removeReservation = async (reservationId) => {
     try {
@@ -125,4 +125,3 @@ export const ReservationProvider = ({ children }) => {
     </ReservationContext.Provider>
   );
 };
-
