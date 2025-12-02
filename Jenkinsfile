@@ -20,6 +20,15 @@ pipeline {
                 bat 'npm -v'
             }
         }
+        
+        stage('Frontend - Install dependencies') {
+            steps {
+                echo '📦 Instalando dependências do frontend...'
+                dir('frontend') {
+                    bat 'npm ci'
+                }
+            }
+        }
 
         stage('Backend - Install dependencies') {
             steps {
