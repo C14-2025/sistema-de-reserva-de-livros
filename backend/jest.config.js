@@ -11,12 +11,17 @@ module.exports = {
   verbose: true,
   testTimeout: 10000,
 
-  // Configuração SIMPLES para JUnit
+  // CONFIGURAÇÃO COMPLETA PARA JENKINS:
   reporters: [
     'default',
     ['jest-junit', {
-      outputDirectory: 'reports',
-      outputName: 'junit.xml'
+      outputDirectory: 'reports',           // Diretório relativo
+      outputName: 'junit.xml',             // Nome que o Jenkins espera
+      classNameTemplate: '{classname}',
+      titleTemplate: '{title}',
+      ancestorSeparator: ' › ',
+      usePathForSuiteName: true,
+      addFileAttribute: 'true'             // Melhor compatibilidade
     }]
   ]
 };

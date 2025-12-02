@@ -71,40 +71,41 @@ const userController = {
 
   // Atualizar usuário
   async updateUser(req, res) {
-    try {
-      const { id } = req.params;
-      const { name, email, role } = req.body;
-      
-      const user = await User.findByPk(id);
-      if (!user) {
-        return res.status(404).json({ error: 'Usuário não encontrado' });
-      }
-      
-      // Verificar se email já existe (exceto para o próprio usuário)
-      if (email && email !== user.email) {
-        const emailExists = await User.findOne({ where: { email } });
-        if (emailExists) {
-          return res.status(400).json({ error: 'Email já está em uso' });
-        }
-      }
-      
-      await user.update({ name, email, role });
-      
-      // Retornar usuário sem senha
-      const userWithoutPassword = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt
-      };
-      
-      res.json(userWithoutPassword);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+  try {
+    const { id } = req.params;
+    const { name, email, role } = req.body;
+    
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
     }
-  },
+    
+    // Verificar se email já existe (exceto para o próprio usuário)
+    if (email && email !== user.email) {
+      const emailExists = await User.findOne({ where: { email } });
+      if (emailExists) {
+        return res.status(400).json({ error: 'Email já está em uso' });
+      }
+    }
+    
+    // CORREÇÃO: Capturar o usuário atualizado
+    const updatedUser = await user.update({ name, email, role });
+    
+    // Retornar usuário sem senha COM DADOS ATUALIZADOS
+    const userWithoutPassword = {
+      id: updatedUser.id,
+      name: updatedUser.name,        // ← Usa updatedUser, não user
+      email: updatedUser.email,      // ← Usa updatedUser, não user
+      role: updatedUser.role,
+      createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt  // ← Será atualizado automaticamente
+    };
+    
+    res.json(userWithoutPassword);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+},
 
   // Deletar usuário
   async deleteUser(req, res) {
