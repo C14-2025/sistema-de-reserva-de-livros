@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo '📦 Instalando dependências do backend...'
                 dir('backend') {
-                    bat 'npm ci --only=production'
+                    bat 'npm ci'
                 }
             }
         }
@@ -34,37 +34,45 @@ pipeline {
             steps {
                 echo '🧪 Rodando testes do backend...'
                 dir('backend') {
-                    // Cria diretório para reports
-                    bat 'if not exist reports mkdir reports'
+                    // Remove diretório antigo e cria novo
+                    bat 'if exist reports rmdir /s /q reports'
+                    bat 'mkdir reports'
                     
-                    // Executa testes com múltiplos formatos de saída
+                    // Executa testes sem cobertura
                     bat 'npm run test:ci'
+                    
+                    // VERIFICAÇÃO: Mostra se arquivo foi criado
+                    bat '''
+                        echo "=== Verificação do relatório ==="
+                        if exist "reports\\junit.xml" (
+                            echo "✅ RELATÓRIO CRIADO COM SUCESSO!"
+                            echo "Local: backend\\reports\\junit.xml"
+                            echo "Tamanho:"
+                            for %%F in (reports\\junit.xml) do echo %%~zF bytes
+                            echo "Primeiras linhas:"
+                            type reports\\junit.xml | findstr "<" | head -3
+                        ) else (
+                            echo "❌ ERRO: Relatório NÃO criado!"
+                            echo "Conteúdo do diretório reports:"
+                            dir reports
+                        )
+                    '''
                 }
             }
             post {
                 always {
-                    echo '📄 Publicando resultados dos testes...'
-                    junit testResults: 'backend/reports/junit.xml', allowEmptyResults: true
-                    publishHTML target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'backend/coverage/lcov-report',
-                        reportFiles: 'index.html',
-                        reportName: 'Code Coverage Report'
-                    ]
-                }
-            }
-        }
-
-        stage('Frontend - Install dependencies') {
-            when {
-                expression { fileExists('frontend/package.json') }
-            }
-            steps {
-                echo '📦 Instalando dependências do frontend...'
-                dir('frontend') {
-                    bat 'npm ci --only=production'
+                    echo '📄 Publicando resultados dos testes no Jenkins...'
+                    
+                    // Publica resultados JUnit (permite vazio)
+                    junit(
+                        testResults: 'backend/reports/junit.xml',
+                        allowEmptyResults: true,
+                        keepLongStdio: true,
+                        healthScaleFactor: 1.0
+                    )
+                    
+                    // Arquiva para debug
+                    archiveArtifacts artifacts: 'backend/reports/junit.xml', fingerprint: true
                 }
             }
         }
@@ -73,29 +81,13 @@ pipeline {
     post {
         success {
             echo '🎉 Pipeline finalizada com sucesso!'
-            script {
-                // Opcional: Enviar notificação de sucesso
-                emailext (
-                    subject: "✅ Build #${BUILD_NUMBER} - SUCESSO",
-                    body: "Pipeline do Sistema de Reserva de Livros finalizada com sucesso!\n\nDetalhes:\n- Job: ${JOB_NAME}\n- Build: #${BUILD_NUMBER}\n- URL: ${BUILD_URL}",
-                    to: 'seu-email@example.com'
-                )
-            }
         }
         failure {
             echo '❌ A pipeline falhou.'
-            script {
-                // Opcional: Enviar notificação de falha
-                emailext (
-                    subject: "❌ Build #${BUILD_NUMBER} - FALHA",
-                    body: "A pipeline do Sistema de Reserva de Livros falhou!\n\nDetalhes:\n- Job: ${JOB_NAME}\n- Build: #${BUILD_NUMBER}\n- URL: ${BUILD_URL}\n\nPor favor, verifique os logs.",
-                    to: 'seu-email@example.com'
-                )
-            }
         }
         always {
             echo '📊 Pipeline finalizada. Status: ' + currentBuild.result
-            cleanWs() // Limpa workspace após execução
+            cleanWs()
         }
     }
 }
