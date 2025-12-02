@@ -7,8 +7,9 @@ export default function Reservations({ navigate }) {
     const { reservations, removeReservation, loading, refreshReservations } = useReservations();
 
     useEffect(() => {
-        refreshReservations();
-    }, []);
+  refreshReservations();
+  
+}, []); 
 
     const handleDelete = (id) => {
         if (window.confirm("Deseja cancelar esta reserva?")) {

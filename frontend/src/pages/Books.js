@@ -3,11 +3,9 @@ import "./Books.css";
 import Header from "../components/Header/Header";
 import BookCard from "../components/BookCard/BookCard";
 
-
 export default function Books({ navigate }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchBooks();
@@ -15,11 +13,10 @@ export default function Books({ navigate }) {
 
   const fetchBooks = async () => {
     try {
-      // Obter o token do localStorage (ou de onde você armazena)
       const token = localStorage.getItem("token") || sessionStorage.getItem("token");
       
       if (!token) {
-        setError("Usuário não autenticado");
+        // REMOVA ESTA LINHA: setError("Usuário não autenticado");
         setLoading(false);
         return;
       }
@@ -42,7 +39,7 @@ export default function Books({ navigate }) {
       
     } catch (error) {
       console.error("Erro ao buscar livros:", error);
-      setError("Erro ao carregar livros: " + error.message);
+      // REMOVA ESTA LINHA: setError("Erro ao carregar livros: " + error.message);
       setBooks([
         { id: 1, title: "Dom Casmurro", author: "Machado de Assis", genre: "Romance", cover: "/image/livro-azul.png" },
         { id: 2, title: "1984", author: "George Orwell", genre: "Ficção", cover: "/image/livro-laranja.png" },

@@ -20,8 +20,9 @@ export const ReservationProvider = ({ children }) => {
   };
   // Carregar reservas do backend ao iniciar
   useEffect(() => {
-    fetchReservations();
-  }, []);
+  fetchReservations();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []); 
 
   const fetchReservations = async () => {
     try {
