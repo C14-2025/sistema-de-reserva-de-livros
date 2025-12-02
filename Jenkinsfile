@@ -31,6 +31,15 @@ pipeline {
             }
         }
 
+        stage('Frontend - Install dependencies') {
+            steps {
+                echo '📦 Instalando dependências do frontend...'
+                dir('frontend') {
+                    bat 'npm ci'
+                }
+            }
+        }
+
         stage('Backend - Run Tests') {
             steps {
                 echo '🧪 Rodando testes do backend...'
